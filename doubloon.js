@@ -9,13 +9,9 @@ function save(fileName, fileContents, callback) {
 }
 
 function swapFiles(fileName, tempFileName, callback) {
-	var oldFileName = fileName + 'tmp2';
-
-	fs.rename(fileName, oldFileName, function (err) {
+	fs.unlink(fileName, function (err) {
 		fs.rename(tempFileName, fileName, function (err) {
-			fs.unlink(oldFileName, function (err) {
-				callback();
-			});
+			callback();
 		});
 	});
 }
@@ -23,4 +19,3 @@ function swapFiles(fileName, tempFileName, callback) {
 module.exports = {
 	save: save
 };
-
